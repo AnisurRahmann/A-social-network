@@ -7,21 +7,29 @@ const keys = require("../../config/keys");
 const passport = require("passport");
 
 //load import validation
+
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 //load user model
+
 const User = require("../../models/User");
+
 //@routes   GET api/users/test
 //@desc   Tests users route
 //@access   Public
+
 router.get("/test", (req, res) => res.json({ msg: "users works" }));
+
 //@routes   POST api/users/register
 //@desc   registation
 //@access   Public
+
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
+
   //check validation
+
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -59,9 +67,12 @@ router.post("/register", (req, res) => {
 //@routes   POST api/users/login
 //@desc   login user/returingn jwt login
 //@access   Public
+
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
+
   //check validation
+
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -69,19 +80,25 @@ router.post("/login", (req, res) => {
   const password = req.body.password;
 
   //find user by email
+
   User.findOne({ email }).then(user => {
     //check for user
+
     if (!user) {
       errors.email = "user not found";
       return res.status(404).json(errors);
     }
     //check password
+
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         //res.json({ msg: "success" });
         //user matched
+
         const payload = { id: user.id, name: user.name, avatar: user.avatar }; //create jwt payload
+
         //sign token
+
         jwt.sign(
           payload,
           keys.secretOrKey,
@@ -104,6 +121,7 @@ router.post("/login", (req, res) => {
 //@routes   GET api/users/current
 //@desc   return current user
 //@access   Private
+
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
