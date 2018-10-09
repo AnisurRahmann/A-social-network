@@ -43,7 +43,7 @@ export class Profile extends Component {
             experience={profile.experience}
           />
           {profile.githubusername ? (
-            <ProfileGithub username={profile.username} />
+            <ProfileGithub username={profile.githubusername} />
           ) : null}
         </div>
       );

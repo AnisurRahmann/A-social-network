@@ -6,8 +6,8 @@ class ProfileGithub extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientId: "9bcf443b6d03716aa24d",
-      clientSecret: "003216e3bae994ca1605c8c0f333106f59576053",
+      clientId: "45dc38690835170e43a7",
+      clientSecret: "b57cf4d352404570caddefd7ec5de96e9d7175a4",
       count: 5,
       sort: "created:asc",
       repos: []
@@ -15,7 +15,7 @@ class ProfileGithub extends Component {
   }
   componentDidMount() {
     const { username } = this.props;
-    const { count, sort, clientId, clientSecret } = this.props;
+    const { count, sort, clientId, clientSecret } = this.state;
     fetch(
       `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
     )
@@ -64,7 +64,7 @@ class ProfileGithub extends Component {
   }
 }
 ProfileGithub.propTypes = {
-  username: PropTypes.string
+  username: PropTypes.string.isRequired
 };
 
 export default ProfileGithub;

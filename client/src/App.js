@@ -25,6 +25,8 @@ import AddEducation from "./components/add-credentials/AddEducation";
 import NotFound from "./components/not-found/NotFound";
 
 import "./App.css";
+import Post from "./components/post/Post";
+import SinglePost from "./components/single-post/SinglePost";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -90,6 +92,12 @@ class App extends Component {
                   path="/add-education"
                   component={AddEducation}
                 />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/feed" component={Post} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/post/:id" component={SinglePost} />
               </Switch>
               <Route exact path="/not-found" component={NotFound} />
             </div>
